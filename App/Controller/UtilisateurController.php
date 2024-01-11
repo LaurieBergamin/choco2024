@@ -83,11 +83,13 @@ class UtilisateurController extends Utilisateur{
                         if(password_verify($password, $hash)){
                             //créer session
                             $_SESSION["connected"] = true;
-                            $_SESSION["nom"] = $recup->getNom;
-                            $_SESSION["prenom"] = $recup->getprenom;
+                            $_SESSION["nom"] = $recup->getNom();
+                            $_SESSION["prenom"] = $recup->getprenom();
                             $_SESSION["image"] = $recup->getImage();
                             $_SESSION["id"] = $recup->getId();
                             $error = "Connecté";
+                            //redirection page d'accueil
+                            header("Refresh:1; url=/choco2024");
                         }
                         else{
                         //test si password invalide
@@ -106,5 +108,11 @@ class UtilisateurController extends Utilisateur{
             Template::render('navbar.php', 'Connexion', 'vueConnexion.php', 'footer.php', 
             $error, [], ['main.css']);
             }
+        public function deconnexionUtilisateur():void{
+            session_destroy();
+            unset($_COOKIE["PHPSESSID"]);
+            //retour à l'accueil
+            header("location:/choco2024");
+        }
     }   
 

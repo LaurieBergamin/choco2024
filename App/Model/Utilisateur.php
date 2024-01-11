@@ -86,7 +86,7 @@ class Utilisateur extends BddConnect{
             $requete->bindParam(3,$mail,\PDO::PARAM_STR);
             $requete->bindParam(4,$password,\PDO::PARAM_STR);
             $requete->bindParam(5,$image,\PDO::PARAM_STR);
-            $requete->bindParam(6,$id_roles,\PDO::PARAM_STR);
+            $requete->bindParam(6,$id_roles,\PDO::PARAM_INT);
             $requete->execute();
 
         }catch(\Exception $e){
@@ -104,7 +104,6 @@ class Utilisateur extends BddConnect{
             $requete->execute();
             $requete->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, Utilisateur::class);
             return $requete->fetch();
-
         }
         catch (\Exception $e){
         die ('Error'.$e->getMessage());
